@@ -34,7 +34,7 @@ export default function Home() {
               The legend of zelda
             </Widget.Header>
             <Widget.Content>
-              <p>Lorem ipsum dsd .</p>
+              <p>Lorem ipsum dsddsdsd .</p>
             </Widget.Content>
         </Widget>
 
