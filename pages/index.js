@@ -11,6 +11,8 @@ import QuizLogo from '../src/components/QuizLogo';
 import QuizBackground from '../src/components/QuizBackground';
 import Footer from '../src/components/Footer';
 import GitHubCorner from '../src/components/GitHubCorner';
+import Input from '../src/components/Input';
+import Button from '../src/components/Buton';
 
 
 /*const BackgroundImage = styled.div`
@@ -44,7 +46,7 @@ export default function Home() {
         <QuizLogo />
         <Widget>
           <Widget.Header>
-            <h1>PHP</h1>
+            <h1>#PHP Quiz</h1>
           </Widget.Header>
           <Widget.Content>
             <form onSubmit={function (infosDoEvento) {
@@ -55,20 +57,16 @@ export default function Home() {
             >
               <h1>Teste os seus conhecimentos sobre a linguagem PHP e divirta-se!</h1>
 
-              <input
-                onChange={function (infosDoEvento) {
-                  console.log(infosDoEvento.target.value);
-                  // State
-                  // name = infosDoEvento.target.value;
-                  setName(infosDoEvento.target.value);
-                }}
+              <Input
+                name="nomeDoUsuario"
+                onChange={(infosDoEvento) => setName(infosDoEvento.target.value)}
                 placeholder="Diz ai seu nome para jogar"
+                value={name}
               />
               <br />
-              <button type="submit" disabled={name.length === 0}>
-                Jogar
-                {name}
-              </button>
+              <Button type="submit" disabled={name.length === 0}>
+                {`Jogar ${name}`}
+              </Button>
             </form>
           </Widget.Content>
         </Widget>

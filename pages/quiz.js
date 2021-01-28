@@ -1,25 +1,86 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import { QuizContainer } from '.';
 import db from '../db.json';
-
+import QuizLogo from '../src/components/QuizLogo';
 import QuizBackground from '../src/components/QuizBackground';
+import QuizContainer from '../src/components/QuizContainer';
 import Widget from '../src/components/Widget';
-import Footer from '../src/components/Footer';
+import Button from '../src/components/Buton';
+
+function LoadingWidget() {
+    return (
+      <Widget>
+        <Widget.Header>
+          Carregando...
+        </Widget.Header>
+  
+        <Widget.Content>
+          [Desafio do Loading]
+        </Widget.Content>
+      </Widget>
+    );
+  }
+
+function QuestionWidget({ 
+    question, 
+    totalQuestions,
+    questionIndex,
+}) {
+    return (
+        <Widget>
+            <Widget.Header>
+                <h3>
+                    Pergunta
+                    {questionIndex}
+                    de
+                    {` ${totalQuestions}`}
+                </h3>
+            </Widget.Header>
+            
+            <img 
+                alt="Descrição"
+                style={{
+                    width: '100%',
+                    height: '150px',
+                    objectFit: 'cover',
+                }}
+                src={question.image}
+            />
+
+            <Widget.Content>
+                <h2>
+                    {question.title}
+                </h2>
+                <p>
+                    {question.description}
+                </p>
+
+                <Button>
+                    Confirmar
+                </Button>
+            </Widget.Content>
+        </Widget>
+    );
+}
 
 export default function QuizPage() {
-    return (
-        <QuizBackground backgroundImage={db.bg}>
-            <QuizContainer>
-                <Widget>
-                    <Widget.Header>
-                        <h1>PHP</h1>
-                    </Widget.Header>
-                    <Widget.Content>
-                        <p> Projeto em desenvolvimento.</p>
-                    </Widget.Content>
-            </Widget>
-            <Footer />
-        </QuizContainer>
-        </QuizBackground>
-    )
+  console.log('Perguntas', db.questions);
+  const totalQuestions = db.questions.length;
+  const questionIndex = 0;
+  const question = db.questions[questionIndex];
+
+  return (
+    <QuizBackground backgroundImage={db.bg}>
+      <QuizContainer>
+        <QuizLogo />
+        
+        <QuestionWidget 
+            question={question}
+            questionIndex={questionIndex}
+            totalQuestions={totalQuestions}
+        />
+        <LoadingWidget />
+      </QuizContainer>
+    </QuizBackground>
+  );
 }
