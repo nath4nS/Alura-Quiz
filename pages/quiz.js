@@ -30,10 +30,7 @@ function QuestionWidget({
         <Widget>
             <Widget.Header>
                 <h3>
-                    Pergunta
-                    {questionIndex}
-                    de
-                    {` ${totalQuestions}`}
+                    {`Pergunta ${questionIndex + 1} de ${totalQuestions}`}
                 </h3>
             </Widget.Header>
             
@@ -55,9 +52,30 @@ function QuestionWidget({
                     {question.description}
                 </p>
 
-                <Button>
-                    Confirmar
-                </Button>
+                <form>
+                    {question.alternatives.forEach((alternative, alternativeIndex) => {
+                        const alternativeId = `alternative_${alternativeIndex}`;
+                        return (
+                            <label
+                                htmlFor={alternativeId}
+                            >
+                                {alternative}
+                                <input
+                                    id={alternativeId}
+                                    type="radio"
+                                />
+                            </label>
+                        );
+                    })}
+
+                    {/* <pre>
+                        {JSON.stringify(question, null, 4)} 
+                    </pre> */}
+
+                    <Button type="submit">
+                        Confirmar
+                    </Button>
+                </form>
             </Widget.Content>
         </Widget>
     );
