@@ -6,6 +6,7 @@ import QuizBackground from '../src/components/QuizBackground';
 import QuizContainer from '../src/components/QuizContainer';
 import Widget from '../src/components/Widget';
 import Button from '../src/components/Buton';
+import next from 'next';
 
 function LoadingWidget() {
     return (
@@ -25,7 +26,9 @@ function QuestionWidget({
     question, 
     totalQuestions,
     questionIndex,
+    onSubmit,
 }) {
+    const questionId= `question__${questionIndex}`;
     return (
         <Widget>
             <Widget.Header>
@@ -52,19 +55,27 @@ function QuestionWidget({
                     {question.description}
                 </p>
 
-                <form>
+                <form 
+                    onSubmit={(infosDoEvento) => {
+                        infosDoEvento.preventDefault();
+                        onSubmit();
+                    }}
+                >
                     {question.alternatives.forEach((alternative, alternativeIndex) => {
                         const alternativeId = `alternative_${alternativeIndex}`;
                         return (
-                            <label
+                            <Widget.Topic
                                 htmlFor={alternativeId}
                             >
-                                {alternative}
+                                
                                 <input
+                                    // style={{ display: 'none' }}
                                     id={alternativeId}
+                                    name={questionId}
                                     type="radio"
                                 />
-                            </label>
+                                {alternative}
+                            </Widget.Topic>
                         );
                     })}
 
@@ -81,23 +92,50 @@ function QuestionWidget({
     );
 }
 
+const screenStates = {
+    QUIZ: 'QUIZ',
+    LOADING: 'LOADING',
+    RESULT: 'RESULT',
+};
+
 export default function QuizPage() {
-  console.log('Perguntas', db.questions);
+  const [screenState, setScreenState] = React.useState(screenStates.LOADING);
   const totalQuestions = db.questions.length;
-  const questionIndex = 0;
+  const [currentQuestion, setCurrentQuestion] = React.useState(0);
+  const questionIndex = currentQuestion;
   const question = db.questions[questionIndex];
+
+    React.useEffect(() => {
+        setTimeout(() => {
+            setScreenState(screenStates.QUIZ);
+        }, 1 * 1000);
+    }, []);
+
+    function handleSubmitQuiz() {
+        const nextQuestion = questionIndex + 1;
+        if (nextQuestion < totalQuestions) {
+            setCurrentQuestion(questionIndex + 1);
+        } else {
+            setScreenState(screenStates.RESULT);
+        }
+    }
 
   return (
     <QuizBackground backgroundImage={db.bg}>
       <QuizContainer>
-        <QuizLogo />
-        
-        <QuestionWidget 
-            question={question}
-            questionIndex={questionIndex}
-            totalQuestions={totalQuestions}
-        />
-        <LoadingWidget />
+        <QuizLogo />       
+        {screenState === screenStates.QUIZ && (
+            <QuestionWidget 
+                question={question}
+                questionIndex={questionIndex}
+                totalQuestions={totalQuestions}
+                onSubmit={handleSubmitQuiz}
+            />
+        )}
+
+        {screenState === screenStates.LOADING && <LoadingWidget />}
+
+        {screenState === screenStates.RESULT && <div>Você acertou X questões, parabéns!</div>}
       </QuizContainer>
     </QuizBackground>
   );
