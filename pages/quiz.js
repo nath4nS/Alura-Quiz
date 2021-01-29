@@ -1,11 +1,13 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable no-console */
+/* eslint-disable react/prop-types */
 import React from 'react';
 import db from '../db.json';
+import Widget from '../src/components/Widget';
 import QuizLogo from '../src/components/QuizLogo';
 import QuizBackground from '../src/components/QuizBackground';
 import QuizContainer from '../src/components/QuizContainer';
-import Widget from '../src/components/Widget';
+import AlternativesForm from '../src/components/AlternativesForm';
 import Button from '../src/components/Buton';
 
 function ResultWidget({ results }) {
@@ -26,12 +28,14 @@ function ResultWidget({ results }) {
                     }
                     return somatoriaAtual;
                 }, 0)}
+
+                {/* {results.filter((x) => x).length} */}
                 {' '}
                 Pergunta
             </p>
             <ul>
                 {results.map((result, index) =>(
-                    <li>
+                    <li key={`result__${result}`}>
                     #
                     {index + 1}
                     {' '}
@@ -67,6 +71,7 @@ function QuestionWidget({
     totalQuestions,
     questionIndex,
     onSubmit,
+    addResult,
 }) {
     const [selectedAlternative, setSelectedAlternative] = React.useState(undefined);
     const [isQuestionSubmited, setIsQuestionSubmited] = React.useState(false);
@@ -100,11 +105,12 @@ function QuestionWidget({
                     {question.description}
                 </p>
 
-                <form 
+                <AlternativesForm
                     onSubmit={(infosDoEvento) => {
                         infosDoEvento.preventDefault();
                         setIsQuestionSubmited(true);
                         setTimeout(() => {
+                            addResult(isCorrect);
                             onSubmit();
                             setIsQuestionSubmited(false);
                             setSelectedAlternative(undefined);
@@ -113,11 +119,15 @@ function QuestionWidget({
                 >
                     {question.alternatives.map((alternative, alternativeIndex) => {
                         const alternativeId = `alternative_${alternativeIndex}`;
+                        const alternativeStatus = isCorrect ? 'SUCCESS' : 'ERROR';
+                        const isSelected = selectedAlternative === alternativeIndex;
                         return (
                             <Widget.Topic
                                 as="label"
                                 key={alternativeId}
                                 htmlFor={alternativeId}
+                                data-selected={isSelected}
+                                data-status={isQuestionSubmited && alternativeStatus}
                             >
                                 
                                 <input
@@ -142,7 +152,7 @@ function QuestionWidget({
                     
                     {isQuestionSubmited && isCorrect && <p>Você acertou!</p>}
                     {isQuestionSubmited && !isCorrect && <p>Você errou!</p>}
-                </form>
+                </AlternativesForm>
             </Widget.Content>
         </Widget>
     );
@@ -156,11 +166,19 @@ const screenStates = {
 
 export default function QuizPage() {
   const [screenState, setScreenState] = React.useState(screenStates.LOADING);
-  const [results, setResults] = React.useState([true, false, true]);
+  const [results, setResults] = React.useState([]);
   const totalQuestions = db.questions.length;
   const [currentQuestion, setCurrentQuestion] = React.useState(0);
   const questionIndex = currentQuestion;
   const question = db.questions[questionIndex];
+
+  function addResult(result) {
+    // results.push(result);
+    setResults([
+      ...results,
+      result,
+    ]);
+  }
 
     React.useEffect(() => {
         setTimeout(() => {
@@ -187,6 +205,7 @@ export default function QuizPage() {
                 questionIndex={questionIndex}
                 totalQuestions={totalQuestions}
                 onSubmit={handleSubmitQuiz}
+                addResult={addResult}
             />
         )}
 
