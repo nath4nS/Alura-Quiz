@@ -5,24 +5,102 @@
     "questions": [
       {
         "image": "https://media.giphy.com/media/xUOxf3yDKCuwpOlT3i/giphy.gif",
-        "title": "Como fazer um seletor por id via CSS?",
-        "description": "Essa é pra aquecer",
-        "answer": 2,
+        "title": "O que PHP significa?",
+        "answer": 1,
         "alternatives": [
-          ".elemento",
-          "*elemento",
-          "#elemento",
-          "%elemento"
+          "Processador de hipertexto pessoal",
+          "PHP: pré-processador de hipertexto",
+          "Home Page Privada"
+        ]
+      },
+      {
+        "image": "https://media.giphy.com/media/xUOxf3yDKCuwpOlT3i/giphy.gif",
+        "title": "Como você escreve \"Hello World\" em PHP?",
+        "answer": 0,
+        "alternatives": [
+          "echo \"Olá, mundo\";",
+          "Document.Write(\"Hello World\");",
+          "Olá Mundo;"
         ]
       },
       {
         "image": "https://media.giphy.com/media/13FrpeVH09Zrb2/giphy.gif",
-        "title": "Como fazer um background gradiente com css?",
-        "description": "Faz tempo em haha",
+        "title": "Os scripts do servidor PHP são cercados por delimitadores, quais?",
+        "answer": 2,
+        "alternatives": [
+           "<?php>...</?>",
+           "<script>...</script>",
+           "<?php>...?>"
+        ]
+      },
+      {
+        "image": "https://media.giphy.com/media/xUOxf3yDKCuwpOlT3i/giphy.gif",
+        "title": "Qual símbolo começam as variavéis em PHP?",
+        "answer": 1,
+        "alternatives": [
+          "E",
+          "$",
+          "!"
+        ]
+      },
+      {
+        "image": "https://media.giphy.com/media/xUOxf3yDKCuwpOlT3i/giphy.gif",
+        "title": "Qual a maneira correta de criar uma função em PHP?",
+        "answer": 1,
+        "alternatives": [
+          "new_function myFunction()",
+          "function myFunction()",
+          "criar myFunction()"
+        ]
+      },
+      {
+        "image": "https://media.giphy.com/media/xUOxf3yDKCuwpOlT3i/giphy.gif",
+        "title": "A sintaxe do PHP é mais semelhante a:",
         "answer": 0,
         "alternatives": [
-           "background: linear-gradient(#e66465, #9198e5);",
-           "background: gradient(#e66465, #9198e5);"
+          "Perl e C",
+          "VBScript",
+          "JavaScript"
+        ]
+      },
+      {
+        "image": "https://media.giphy.com/media/xUOxf3yDKCuwpOlT3i/giphy.gif",
+        "title": "Qual dessas variáveis tem um nome ilegal?",
+        "answer": 1,
+        "alternatives": [
+          "$ my_Var",
+          "$ my-Var",
+          "$ myVar"
+        ]
+      },
+      {
+        "image": "https://media.giphy.com/media/xUOxf3yDKCuwpOlT3i/giphy.gif",
+        "title": "Qual é a maneira correta de incluir o arquivo \"time.inc\"?",
+        "answer": 2,
+        "alternatives": [
+          "<? php include file = \"time.inc\";",
+          "<! - incluir arquivo = \"time.inc\"",
+          "<? php inclui \"time.inc\";"
+        ]
+      },
+      {
+        "image": "https://media.giphy.com/media/xUOxf3yDKCuwpOlT3i/giphy.gif",
+        "title": "Como você obtém informações de um formulário enviado usando o método \"get\"?",
+        "answer": 0,
+        "alternatives": [
+          "$_GET [];",
+          "Request.QueryString;",
+          "Request.Form;"
+        ]
+      },
+      {
+        "image": "https://media.giphy.com/media/xUOxf3yDKCuwpOlT3i/giphy.gif",
+        "title": "Qual é a maneira correta de adicionar um comentário em PHP",
+        "answer": 1,
+        "alternatives": [
+          "<! -- ... -->",
+          "/* ... */",
+          "<comment> ... </comment>"
         ]
       }
     ],
@@ -37,7 +115,9 @@
         "contrastText": "#FFFFFF",
         "wrong": "#FF5722",
         "success": "#4CAF50",
-        "text": "white"
+        "text": "white",
+        "quiz": "#80bfff",
+        "marcada": "#0000cc"
       },
       "borderRadius": "4px"
     }
