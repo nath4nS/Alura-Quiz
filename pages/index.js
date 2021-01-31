@@ -93,7 +93,7 @@ export default function Home() {
           <Widget.Content>
             <h1>Quizes da galera</h1>
 
-            {/* <p>Dá uma olhada nesses quizes incríveis que o pessoal da Imersão React fez:</p> */}
+            {/* <p>Dá uma olhada nesses quizes  ds incríveis que o pessoal da Imersão React fez:</p> */}
 
             <ul>
               {db.external.map((linkExterno) => {
