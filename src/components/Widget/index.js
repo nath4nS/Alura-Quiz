@@ -28,7 +28,7 @@ Widget.Header = styled.header`
   justify-content: flex-start;
   align-items: center;
   padding: 18px 32px;
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.header};
   color: ${({ theme }) => theme.colors.text};
   * {
     margin: 0;
@@ -37,6 +37,8 @@ Widget.Header = styled.header`
 
 Widget.Content = styled.div`
   padding: 24px 32px 32px 32px;
+  background-color: ${({ theme }) => `${theme.colors.primary}`};
+  color: ${({ theme }) => theme.colors.contrastText};
   & > *:first-child {
     margin-top: 0;
   }
@@ -53,7 +55,7 @@ Widget.Topic = styled.a`
   outline: 0;
   text-decoration: none;
   color: ${({ theme }) => theme.colors.contrastText};
-  background-color: ${({ theme }) => `${theme.colors.quiz}`};
+  background-color: ${({ theme }) => `${theme.colors.primary}`};
   padding: 10px 15px;
   margin-bottom: 8px;
   cursor: pointer;

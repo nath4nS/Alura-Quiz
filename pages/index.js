@@ -1,12 +1,12 @@
-/* eslint-disable react/jsx-filename-extension */
-/* eslint-disable no-console */
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Head from 'next/head';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
  
 import db from '../db.json';
 import Widget from '../src/components/Widget';
+import Link from '../src/components/Link';
 import QuizLogo from '../src/components/QuizLogo';
 import QuizBackground from '../src/components/QuizBackground';
 import Footer from '../src/components/Footer';
@@ -44,7 +44,16 @@ export default function Home() {
       </Head>
       <QuizContainer>
         <QuizLogo />
-        <Widget>
+        <Widget
+          as={motion.section}
+          transition={{ delay: 0 , duration: 1 }}
+          variants={{
+            show: { opacity: 1, y: '0' },
+            hidden: { opacity: 0, y: '100%' },
+          }}
+          initial="hidden"
+          animate="show"
+        >
           <Widget.Header>
             <h1>#PHP Quiz</h1>
           </Widget.Header>
@@ -55,27 +64,36 @@ export default function Home() {
               console.log('Fazendo uma submissão por meio do react');
             }}
             >
-              <h1>Teste os seus conhecimentos sobre a linguagem PHP e divirta-se!</h1>
-
+              <h1>Um quiz sobre o mundo PHP!</h1>
+              <br />
               <Input
                 name="nomeDoUsuario"
                 onChange={(infosDoEvento) => setName(infosDoEvento.target.value)}
-                placeholder="Diz ai seu nome para jogar"
+                placeholder="Diga o seu nome para jogar!"
                 value={name}
               />
               <br />
               <Button type="submit" disabled={name.length === 0}>
-                {`Jogar ${name}`}
+                {`Vamos jogar ${name}`}
               </Button>
             </form>
           </Widget.Content>
         </Widget>
 
-        <Widget>
+        <Widget
+          as={motion.section}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          variants={{
+            show: { opacity: 1 },
+            hidden: { opacity: 0 },
+          }}
+          initial="hidden"
+          animate="show"
+        >
           <Widget.Content>
             <h1>Quizes da galera</h1>
 
-            <p>Dá uma olhada nesses quizes incríveis que o pessoal da Imersão React fez:</p>
+            {/* <p>Dá uma olhada nesses quizes incríveis que o pessoal da Imersão React fez:</p> */}
 
             <ul>
               {db.external.map((linkExterno) => {
@@ -87,8 +105,9 @@ export default function Home() {
                   
                 return (
                   <li key={linkExterno}>
-                    <Widget.Topic 
-                      href={linkExterno} 
+                    <Widget.Topic
+                      as={Link}
+                      href={`/quiz/${projectName}___${githubUser}`} 
                       target="blank"
                     >
                       {`${githubUser}/${projectName}`}
@@ -99,7 +118,16 @@ export default function Home() {
             </ul>
           </Widget.Content>
         </Widget>
-        <Footer />
+        <Footer 
+          as={motion.section}
+          transition={{ delay: 0.7 , duration: 1 }}
+          variants={{
+            show: { opacity: 1, y: '0' },
+            hidden: { opacity: 0, y: '100%' },
+          }}
+          initial="hidden"
+          animate="show"
+        />
       </QuizContainer>
       <GitHubCorner projectUrl="https://github.com/nath4ns" />
     </QuizBackground>

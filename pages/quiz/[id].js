@@ -1,12 +1,15 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
 import QuizScren from '../../src/screens/Quiz';
 
 export default function QuizDaGaleraPage({ dbExterno }) {
     return (
+         <ThemeProvider theme={dbExterno.theme}>
          <QuizScren 
             externalQuestions={dbExterno.questions}
             externalBg={dbExterno.bg}
-        />
+         />
+        </ThemeProvider>
         //    {/* <pre style={{ color: 'black' }}>
         //        {JSON.stringify(dbExterno.questions, null, 4)}
         //   </pre> */}
@@ -14,8 +17,10 @@ export default function QuizDaGaleraPage({ dbExterno }) {
 }
 
 export async function getServerSideProps(context) {
+    const [projectName, githubUser] = context.query.id.split('___');
 
-    const dbExterno = await fetch('https://aluraquiz-css.omariosouto.vercel.app/api/db')
+    try  {
+        const dbExterno = await fetch(`https://${projectName}.${githubUser}.vercel.app/api/db`)
         .then((respostaDoServer) => {
             if (respostaDoServer.ok) {
                 return respostaDoServer.json();
@@ -23,16 +28,19 @@ export async function getServerSideProps(context) {
             throw new Error('Falha em pegar os dados');
         }) 
         .then((respostaConvertidaEmObjeto) => respostaConvertidaEmObjeto)
-        .catch((err) => {
-            console.error(err);
-        });
+        // .catch((err) => {
+        //     console.error(err);
+        // });
 
-        console.log('dbExterno', dbExterno);
-        console.log('Infos que o Next da para nós', context.query.id);
+        // console.log('dbExterno', dbExterno);
+        // console.log('Infos que o Next da para nós', context.query.id);
 
-    return {
-        props: {
-            dbExterno,
-        },
-    };
+        return {
+            props: {
+                dbExterno,
+            },
+        };
+    } catch(err) {
+        throw new Error(err);
+    }
 }
